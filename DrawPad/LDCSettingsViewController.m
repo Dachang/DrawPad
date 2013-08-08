@@ -13,6 +13,7 @@
 @end
 
 @implementation LDCSettingsViewController
+@synthesize delegate;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -26,7 +27,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+    [self initSliderDefault];
 }
 
 - (void)didReceiveMemoryWarning
@@ -35,11 +36,27 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)initSliderDefault
+{
+    UIGraphicsBeginImageContext(self.brushPreview.frame.size);
+    CGContextSetLineCap(UIGraphicsGetCurrentContext(), kCGLineCapRound);
+    CGContextSetLineWidth(UIGraphicsGetCurrentContext(), 40);
+    CGContextSetRGBStrokeColor(UIGraphicsGetCurrentContext(), 0.0, 0.0, 0.0, 1.0);
+    CGContextMoveToPoint(UIGraphicsGetCurrentContext(),45, 45);
+    CGContextAddLineToPoint(UIGraphicsGetCurrentContext(),45, 45);
+    CGContextStrokePath(UIGraphicsGetCurrentContext());
+    self.brushPreview.image = UIGraphicsGetImageFromCurrentImageContext();
+    self.opacityPreview.image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+
+}
+
 #pragma mark - target action
 
 - (IBAction)closeSettings:(id)sender
 {
-    [self dismissViewControllerAnimated:YES completion:nil];
+//    [self dismissViewControllerAnimated:YES completion:nil];
+    [self.delegate closeSettings:self];
 }
 
 - (IBAction)sliderChanged:(id)sender
@@ -48,12 +65,12 @@
     
     if(changedSlider == self.brushControl)
     {
-        brushValue = self.brushControl.value;
-        self.brushValueLabel.text = [NSString stringWithFormat:@"%.1f", brushValue];
+        self.brushValue = self.brushControl.value;
+        self.brushValueLabel.text = [NSString stringWithFormat:@"%.1f", self.brushValue];
         
         UIGraphicsBeginImageContext(self.brushPreview.frame.size);
         CGContextSetLineCap(UIGraphicsGetCurrentContext(), kCGLineCapRound);
-        CGContextSetLineWidth(UIGraphicsGetCurrentContext(), brushValue);
+        CGContextSetLineWidth(UIGraphicsGetCurrentContext(), self.brushValue);
         CGContextSetRGBStrokeColor(UIGraphicsGetCurrentContext(), 0.0, 0.0, 0.0, 1.0);
         CGContextMoveToPoint(UIGraphicsGetCurrentContext(),45, 45);
         CGContextAddLineToPoint(UIGraphicsGetCurrentContext(),45, 45);
@@ -63,13 +80,13 @@
     }
     else if (changedSlider == self.opacityControl)
     {
-        opacityValue = self.opacityControl.value;
-        self.opacityValueLabel.text = [NSString stringWithFormat:@"%.1f",opacityValue];
+        self.opacityValue = self.opacityControl.value;
+        self.opacityValueLabel.text = [NSString stringWithFormat:@"%.1f",self.opacityValue];
         
         UIGraphicsBeginImageContext(self.opacityPreview.frame.size);
         CGContextSetLineCap(UIGraphicsGetCurrentContext(), kCGLineCapRound);
         CGContextSetLineWidth(UIGraphicsGetCurrentContext(), 40.0);
-        CGContextSetRGBStrokeColor(UIGraphicsGetCurrentContext(), 0.0, 0.0, 0.0, opacityValue);
+        CGContextSetRGBStrokeColor(UIGraphicsGetCurrentContext(), 0.0, 0.0, 0.0, self.opacityValue);
         CGContextMoveToPoint(UIGraphicsGetCurrentContext(), 45, 45);
         CGContextAddLineToPoint(UIGraphicsGetCurrentContext(), 45, 45);
         CGContextStrokePath(UIGraphicsGetCurrentContext());

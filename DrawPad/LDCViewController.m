@@ -162,6 +162,23 @@
     self.mainImage.image = nil;
 }
 
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    LDCSettingsViewController *settingsVC = (LDCSettingsViewController *)segue.destinationViewController;
+    settingsVC.delegate = self;
+    settingsVC.brushValue = brush;
+    settingsVC.opacityValue = opacity;
+}
+
+#pragma mark - LDCSettingsViewControllerDelegate
+
+- (void)closeSettings:(id)sender
+{
+    brush = ((LDCSettingsViewController *)sender).brushValue;
+    opacity = ((LDCSettingsViewController *)sender).opacityValue;
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 - (IBAction)setting:(id)sender {
 }
 

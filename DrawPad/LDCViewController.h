@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "LDCSettingsViewController.h"
 
-@interface LDCViewController : UIViewController
+@interface LDCViewController : UIViewController<LDCSettingsViewControllerDelegate>
 {
     CGPoint lastPoint;   //saving the latest point made on the canvas, this will continously draw brushes on the screen
     CGFloat red;      // R
