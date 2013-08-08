@@ -1,4 +1,3 @@
-CE-Client
+Draw Pad
 =========
 
-An IOS Client for Crystal Education
