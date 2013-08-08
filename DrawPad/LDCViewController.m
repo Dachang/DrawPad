@@ -7,6 +7,7 @@
 //
 
 #import "LDCViewController.h"
+#import "MBProgressHUD.h"
 
 @interface LDCViewController ()
 
@@ -162,12 +163,16 @@
     self.mainImage.image = nil;
 }
 
+//Here comes a little iteration
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     LDCSettingsViewController *settingsVC = (LDCSettingsViewController *)segue.destinationViewController;
     settingsVC.delegate = self;
     settingsVC.brushValue = brush;
     settingsVC.opacityValue = opacity;
+    settingsVC.redValue = red;
+    settingsVC.greenValue = green;
+    settingsVC.blueValue = blue;
 }
 
 #pragma mark - LDCSettingsViewControllerDelegate
@@ -176,12 +181,58 @@
 {
     brush = ((LDCSettingsViewController *)sender).brushValue;
     opacity = ((LDCSettingsViewController *)sender).opacityValue;
+    red = ((LDCSettingsViewController*)sender).redValue;
+    green = ((LDCSettingsViewController*)sender).greenValue;
+    blue = ((LDCSettingsViewController*)sender).blueValue;
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (IBAction)setting:(id)sender {
 }
 
-- (IBAction)save:(id)sender {
+- (IBAction)save:(id)sender
+{
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Save to CameraRoll",@"Tweet!", nil];
+    [actionSheet showInView:self.view];
 }
+
+#pragma mark - ActionSheet delegate
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    switch (buttonIndex) {
+        case 0:
+        {
+            //save image
+            UIGraphicsBeginImageContextWithOptions(self.mainImage.bounds.size, NO, 0.0);
+            [self.mainImage.image drawInRect:CGRectMake(0, 0, self.mainImage.frame.size.width, self.mainImage.frame.size.height)];
+            UIImage *saveImage = UIGraphicsGetImageFromCurrentImageContext();
+            UIGraphicsEndImageContext();
+            UIImageWriteToSavedPhotosAlbum(saveImage, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
+        }
+            break;
+        case 1:
+        {
+            //tweet
+        }
+        default:
+            break;
+    }
+}
+
+- (void)image:(UIImage*)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo
+{
+    if(error != NULL)
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Image could not be saved. Please try again" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Close", nil];
+        [alert show];
+    }
+    else
+    {
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.mode = MBProgressHUDModeCustomView;
+        hud.labelText = @"Saved";
+        [hud hide:YES afterDelay:2.0f];
+    }
+}
+
 @end

@@ -42,6 +42,7 @@
 		13AB021E17B370D70098E84A /* width.png in Resources */ = {isa = PBXBuildFile; fileRef = 13AB020817B370D70098E84A /* width.png */; };
 		13AB021F17B370D70098E84A /* Yellow.png in Resources */ = {isa = PBXBuildFile; fileRef = 13AB020917B370D70098E84A /* Yellow.png */; };
 		13AB022217B38C520098E84A /* LDCSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 13AB022117B38C520098E84A /* LDCSettingsViewController.m */; };
+		13AB022517B3B0EC0098E84A /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 13AB022417B3B0C90098E84A /* MBProgressHUD.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -86,6 +87,8 @@
 		13AB020917B370D70098E84A /* Yellow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Yellow.png; sourceTree = "<group>"; };
 		13AB022017B38C520098E84A /* LDCSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDCSettingsViewController.h; sourceTree = "<group>"; };
 		13AB022117B38C520098E84A /* LDCSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDCSettingsViewController.m; sourceTree = "<group>"; };
+		13AB022317B3B0C90098E84A /* MBProgressHUD.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MBProgressHUD.h; path = Graphics/MBProgressHUD.h; sourceTree = "<group>"; };
+		13AB022417B3B0C90098E84A /* MBProgressHUD.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = MBProgressHUD.m; path = Graphics/MBProgressHUD.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -134,6 +137,8 @@
 		13AB01D417B36EF00098E84A /* DrawPad */ = {
 			isa = PBXGroup;
 			children = (
+				13AB022317B3B0C90098E84A /* MBProgressHUD.h */,
+				13AB022417B3B0C90098E84A /* MBProgressHUD.m */,
 				13AB01F317B370D70098E84A /* Graphics */,
 				13AB01DD17B36EF00098E84A /* LDCAppDelegate.h */,
 				13AB01DE17B36EF00098E84A /* LDCAppDelegate.m */,
@@ -283,6 +288,7 @@
 				13AB01DF17B36EF00098E84A /* LDCAppDelegate.m in Sources */,
 				13AB01EB17B36EF00098E84A /* LDCViewController.m in Sources */,
 				13AB022217B38C520098E84A /* LDCSettingsViewController.m in Sources */,
+				13AB022517B3B0EC0098E84A /* MBProgressHUD.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
